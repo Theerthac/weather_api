@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weather/controller/weather_provider.dart';
-import 'package:weather/model/weather_model.dart';
-import 'package:weather/service/weather_api_client.dart';
 import 'package:weather/view/widgets/additional_information.dart';
 import 'package:weather/view/widgets/current_weather.dart';
 import 'package:provider/provider.dart';
@@ -14,22 +12,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  WeatherApiclient client = WeatherApiclient();
-
-  Weather? data;
-
-  TextEditingController searchController = TextEditingController();
-
-  Future<void> getData(String place) async {
-    data = await client.getCurrentWeather(place);
-    Provider.of<WeatherProvider>(context, listen: false).changeValue();
-  }
-
+  
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getData('Calicut');
+    Provider.of<WeatherProvider>(context, listen: false).getData('Calicut');
+    //getData('Calicut');
   }
 
   @override
@@ -37,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 230, 223, 223),
+        backgroundColor: const Color.fromARGB(255, 230, 223, 223),
         elevation: 0.0,
         title: const Text(
           "Weather",
@@ -57,39 +45,41 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: TextFormField(
                   onFieldSubmitted: (String place) {
-                    getData(place);
+                    value.getData(place);
+
+                    //getData(place);
                   },
-                  controller: searchController,
+                  controller: value.searchController,
                   cursorColor: Colors.black,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
                   ),
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(top: 18, left: 10),
+                    contentPadding: const EdgeInsets.only(top: 18, left: 10),
                     isDense: true,
                     hintText: "Search",
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(
                       Radius.circular(7),
                     )),
-                    prefixIcon: Padding(
+                    prefixIcon: const Padding(
                       padding: EdgeInsets.all(10),
                       child: Icon(
                         Icons.location_searching_sharp,
                         size: 26,
                       ),
                     ),
-                    suffixIcon: searchController.text.length > 0
+                    suffixIcon: value.searchController.text.isNotEmpty
                         ? IconButton(
                             onPressed: () {
-                              searchController.clear();
+                              value.searchController.clear();
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.cancel,
                               color: Colors.grey,
                             ),
@@ -98,16 +88,16 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              if (data != null)
+              if (value.data != null)
                 currentWeather(
                   Icons.wb_sunny_rounded,
-                  '${data!.temp}',
-                  searchController.text.isEmpty
+                  '${value.data!.temp}',
+                  value.searchController.text.isEmpty
                       ? "Calicut"
-                      : searchController.text,
+                      : value.searchController.text,
                 ),
               const SizedBox(
                 height: 50.0,
@@ -123,12 +113,12 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 10.0,
               ),
-              if (data != null)
+              if (value.data != null)
                 additionaInformation(
-                  "${data!.wind}",
-                  "${data!.humidity}",
-                  "${data!.pressure}",
-                  "${data!.feelsLike}",
+                  "${value.data!.wind}",
+                  "${value.data!.humidity}",
+                  "${value.data!.pressure}",
+                  "${value.data!.feelsLike}",
                 ),
             ],
           );

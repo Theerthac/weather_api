@@ -16,7 +16,7 @@ Widget additionaInformation(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
+            const Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -45,15 +45,15 @@ Widget additionaInformation(
                 Text(
                  
                   "$wind",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18.0,
                   ),
                 ),
-                SizedBox(height: 18.0,),
+                const SizedBox(height: 18.0,),
                 Text(
                   "$pressure",
-                  style: TextStyle(fontWeight: FontWeight.w600,
+                  style: const TextStyle(fontWeight: FontWeight.w600,
                   fontSize: 18.0),
 
 
@@ -62,7 +62,7 @@ Widget additionaInformation(
               ],
             ),
 
-                  Column(
+                  const Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -91,15 +91,15 @@ Widget additionaInformation(
                 Text(
                  
                   "$humidity",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18.0,
                   ),
                 ),
-                SizedBox(height: 18.0,),
+                const SizedBox(height: 18.0,),
                 Text(
                   "$feelsLike",
-                  style: TextStyle(fontWeight: FontWeight.w600,
+                  style: const TextStyle(fontWeight: FontWeight.w600,
                   fontSize: 18.0),
 
 
